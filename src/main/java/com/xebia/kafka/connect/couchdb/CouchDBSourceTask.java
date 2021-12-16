@@ -184,7 +184,7 @@ public class CouchDBSourceTask extends SourceTask {
           .doOnError(e -> LOG.error("Error while listening to changes from '" + dbName + "' database", e));
       })
       .toCompletable()
-      .await();
+      .subscribe();
   }
 
   @Override
