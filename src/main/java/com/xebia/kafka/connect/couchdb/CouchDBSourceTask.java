@@ -111,8 +111,17 @@ public class CouchDBSourceTask extends SourceTask {
   Acc accumulateJsonObjects(Acc acc, String chunk) {
     String concat = acc.str + chunk;
 
+    if (concat == "\n") {
+      return new Acc("");
+    }
+
     if (concat.contains("\n")) {
       String[] parts = concat.split("\n");
+
+      if (parts.length == 0) {
+        return new Acc("");
+      }
+
       JsonObject jObj = Json.mapper.convertValue(parts[0], JsonObject.class);
 
       if (parts.length > 1) {
